@@ -182,6 +182,7 @@ parts:
       - uidmap
       - gnupg2
     override-build: |
+      env
       kata_version=$(cat ${SNAPCRAFT_STAGE}/kata_version)
       yq=$(realpath ../../yq/build/yq)
       pkg_name=osbuilder
@@ -200,6 +201,7 @@ parts:
         echo "Setting proxy $http_proxy"
         sudo -E systemctl set-environment http_proxy=$http_proxy || true
         sudo -E systemctl set-environment https_proxy=$https_proxy || true
+        sudo -E systemctl set-environment no_proxy=$no_proxy || true
       fi
 
       # Copy yq binary. It's used in the container
